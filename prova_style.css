@@ -1,0 +1,18 @@
+.Lista-Pr {
+  background-color: rgb(195, 146, 214);
+}
+.Lista-Sc {
+  background-color: cadetblue;
+}
+.Container {
+  margin: auto;
+  width: 10%;
+}
+ul {
+  color: white;
+  width: 50%;
+  margin: auto;
+}
+body {
+  background-color: rgb(184, 176, 176);
+}
