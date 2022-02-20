@@ -3,20 +3,21 @@
   <head>
     <title>Veneriamo il Darione</title>
     <link rel="stylesheet" href="prova_style.css" />
+    <script src="app.js"></script>
   </head>
   <body>
     <h1>Lista puntata</h1>
-    <h6>prodotti di cucina</h6>
     <div class="Container">
       <div class="Lista-Pr">
-        <ul>
+        <h6>prodotti di cucina</h6>
+        <ul class="ul-list">
           <h3>Carni</h3>
           <li>Pollo</li>
           <li>Maiale</li>
           <li>Vitello</li>
           <li>Coniglio</li>
         </ul>
-        <ul>
+        <ul class="ul-list">
           <h3>Verdure</h3>
           <li>Zucchine</li>
           <li>Fagioli</li>
@@ -25,7 +26,7 @@
         </ul>
       </div>
       <div class="Lista-Sc">
-        <ul>
+        <ul class="ul-list">
           <h3>Cuochi</h3>
           <li>Marco</li>
           <li>Stefano</li>
@@ -33,6 +34,53 @@
           <li>Martino</li>
         </ul>
       </div>
+    </div>
+
+    <div>
+      <form name="myForm" id="myForm" onsubmit="alert('BEN FATTO!')">
+        <p>
+          Nome<input type="text" name="Nome" /> Cognome<input
+            type="text"
+            name="Cognome"
+          />
+        </p>
+        <br />
+        <p>
+          <input type="radio" name="gender" value="Uomo" />M
+          <input type="radio" name="gender" value="Donna" />F
+          <br />
+          <input type="checkbox" name="vehicle" value="car" />Macchina
+          <input type="checkbox" name="vehicle" value="moto" />Moto
+        </p>
+        <br />
+        <p>
+          <select>
+            Macchina
+            <option id="vlv" value="Volvo">Volvo</option>
+            <option id="frrr" value="Ferrari">Ferrari</option>
+            <option id="bmw" value="BMW">BMW</option>
+            <option id="lfrm" value="Alfa Romeo">Alfa Romeo</option>
+          </select>
+
+          <select>
+            Moto
+            <option value="Yamaha">Yamaha</option>
+            <option value="Honda">Honda</option>
+            <option value="Kawasaki">Kawasaki</option>
+          </select>
+        </p>
+        <br />
+        <textarea name="feedback" rows="5" cols="30"> </textarea>
+        <br />
+        <input
+          type="button"
+          name="showData"
+          value="Premi Qui"
+          onclick="checkData()"
+        />
+        <input type="submit" value="Submit" />
+        <br />
+      </form>
     </div>
   </body>
 </html>

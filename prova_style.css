@@ -8,11 +8,20 @@
   margin: auto;
   width: 10%;
 }
-ul {
+.ul-list {
   color: white;
   width: 50%;
   margin: auto;
 }
 body {
-  background-color: rgb(184, 176, 176);
+  background-color: rgb(128, 130, 246);
+}
+form {
+  display: table;
+}
+p {
+  display: table-row;
+}
+input {
+  display: table-cell;
 }
