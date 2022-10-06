@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Modal from "./Modal";
 import Backdrop from "./Backdrop";
-
+import styles from "./Login.module.css";
 const Login = () => {
   const [ModalIsOpen, setModalIsOpen] = useState(false);
+  const [isLogin, SetIsLogin] = useState(true);
 
   function deleteHandler() {
     setModalIsOpen(true);
@@ -14,13 +15,36 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <h1>Qui fai la form </h1>
-      <button onClick={deleteHandler}>Login</button>
-      {ModalIsOpen && (
-        <Modal onCancel={closeModalHandler} onConfirm={closeModalHandler} />
-      )}
-      {ModalIsOpen && <Backdrop onCancel={closeModalHandler} />}
+    <div className={styles.container}>
+      <div className={styles.box}>
+        <h1 className={styles.text}>BENVENUTO </h1>
+        <button
+          className={styles.btn}
+          onClick={() => {
+            deleteHandler();
+            SetIsLogin(() => true);
+          }}
+        >
+          ACCEDI
+        </button>
+        <button
+          className={styles.btn}
+          onClick={() => {
+            deleteHandler();
+            SetIsLogin(() => false);
+          }}
+        >
+          REGISTRATI
+        </button>
+        {ModalIsOpen && (
+          <Modal
+            onCancel={closeModalHandler}
+            onConfirm={closeModalHandler}
+            form={isLogin}
+          />
+        )}
+        {ModalIsOpen && <Backdrop onCancel={closeModalHandler} />}
+      </div>
     </div>
   );
 };
