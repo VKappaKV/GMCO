@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect, useReducer, useRef, useState } from "react";
 import AuthTokenCall from "../SpotifyAPIHandlers/AuthTokenCall";
 import styles from "./Modal.module.css";
@@ -13,6 +14,7 @@ function Modal(props) {
   //Variabili target per accedere
   const [email_login, SetEmailLogin] = useState();
   const [password_login, SetPasswordLogin] = useState();
+  const router = useRouter();
 
   function CancelHandler() {
     props.onCancel();
@@ -20,10 +22,10 @@ function Modal(props) {
 
   function ConfirmHandler() {
     props.onConfirm();
+    router.push("/" + "homepage");
   }
 
   function SignupHandler() {
-    event.preventDefault;
     let user = {};
     user.email = email_signup;
     user.password = password_signup;
@@ -40,8 +42,8 @@ function Modal(props) {
     ConfirmHandler();
   }
 
-  function LoginHandler() {
-    event.preventDefault;
+  const LoginHandler = (e) => {
+    e.preventDefault();
     console.log(
       `Devo accedere con ${email_login} e password ${password_login}`
     );
@@ -50,15 +52,14 @@ function Modal(props) {
     if (typeof logging_user == "undefined") {
       console.log("item not found");
       CancelHandler();
-    }
-    if (password_login !== logging_user.password) {
+    } else if (password_login !== logging_user.password) {
       console.log(password_login + "is not the correct password");
       CancelHandler();
     } else {
       alert("Bentornato " + logging_user.username);
       ConfirmHandler();
     }
-  }
+  };
 
   if (props.form === true) {
     return (
