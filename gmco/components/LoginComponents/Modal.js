@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { useEffect, useReducer, useRef, useState } from "react";
-import AuthTokenCall from "../SpotifyAPIHandlers/AuthTokenCall";
+import { useContext, useState } from "react";
+import UserContext from "../utility/UserContext";
 import styles from "./Modal.module.css";
 
 // informazioni quali nome utente, indirizzo email, password,
@@ -14,7 +14,10 @@ function Modal(props) {
   //Variabili target per accedere
   const [email_login, SetEmailLogin] = useState();
   const [password_login, SetPasswordLogin] = useState();
+  // Router per link alla pagina successiva
   const router = useRouter();
+  // SetUserContext per attivare l'utente loggato
+  const { user, setUser } = useContext(UserContext);
 
   function CancelHandler() {
     props.onCancel();
@@ -22,7 +25,15 @@ function Modal(props) {
 
   function ConfirmHandler() {
     props.onConfirm();
+    console.log(user);
+    const getUsername = JSON.parse(localStorage.getItem(email_login));
+    console.log(getUsername.username);
+    setUser(getUsername.username);
     router.push("/" + "homepage");
+  }
+
+  function ConfirmSignupHandler() {
+    props.onConfirm();
   }
 
   function SignupHandler() {
@@ -39,7 +50,7 @@ function Modal(props) {
     console.log(user, "stored user");
     var userStored = JSON.parse(localStorage.getItem(key));
     console.log(userStored, "retrieved user");
-    ConfirmHandler();
+    ConfirmSignupHandler();
   }
 
   const LoginHandler = (e) => {

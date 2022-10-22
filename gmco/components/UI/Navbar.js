@@ -1,4 +1,11 @@
+import { useContext } from "react";
+import UserContext from "../utility/UserContext";
+import { useRouter } from "next/router";
+
 export default function Navbar() {
+  const { user, setUser } = useContext(UserContext);
+
+  const router = useRouter();
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -38,6 +45,14 @@ export default function Navbar() {
             </li>
           </ul>
         </div>
+        <button
+          onClick={() => {
+            setUser(null);
+            router.push("/" + "");
+          }}
+        >
+          Logout {user}
+        </button>
       </div>
     </nav>
   );
