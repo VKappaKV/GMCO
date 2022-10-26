@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import UserContext from "../utility/UserContext";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
@@ -9,9 +10,9 @@ export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <Link className="navbar-brand" href="/homepage">
           Navbar
-        </a>
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -26,22 +27,13 @@ export default function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
-                Home
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Features
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Pricing
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link disabled">Disabled</a>
+              <Link
+                className="nav-link active"
+                aria-current="page"
+                href="/profile"
+              >
+                YOUR PROFILE
+              </Link>
             </li>
           </ul>
         </div>

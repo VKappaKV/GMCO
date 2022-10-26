@@ -60,10 +60,10 @@ function Modal(props) {
     );
     const logging_user = JSON.parse(localStorage.getItem(email_login));
     console.log(logging_user);
-    if (typeof logging_user == "undefined") {
-      console.log("item not found");
+    if (logging_user == null) {
+      alert("user is not registered");
       CancelHandler();
-    } else if (password_login !== logging_user.password) {
+    } else if (password_login != logging_user.password) {
       console.log(password_login + "is not the correct password");
       CancelHandler();
     } else {
