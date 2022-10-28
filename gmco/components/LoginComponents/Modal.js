@@ -4,7 +4,6 @@ import UserContext from "../utility/UserContext";
 import styles from "./Modal.module.css";
 
 // informazioni quali nome utente, indirizzo email, password,
-//preferenze musicali, gruppi preferiti.
 
 function Modal(props) {
   //Variabili target per registrarsi
@@ -34,6 +33,8 @@ function Modal(props) {
 
   function ConfirmSignupHandler() {
     props.onConfirm();
+    setUser(email_signup);
+    router.push("/" + "preferences");
   }
 
   function SignupHandler() {
@@ -46,7 +47,7 @@ function Modal(props) {
       localStorage.setItem(key, JSON.stringify(user));
     }
 
-    alert(`Utente ${key} Registrato`);
+    alert(`Utente ${user.username} Registrato con email: ${key}`);
     console.log(user, "stored user");
     var userStored = JSON.parse(localStorage.getItem(key));
     console.log(userStored, "retrieved user");

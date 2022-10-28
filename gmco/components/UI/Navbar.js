@@ -40,7 +40,6 @@ export default function Navbar() {
         </div>
         <button
           onClick={() => {
-            setUser(null);
             router.push("/" + "");
           }}
         >

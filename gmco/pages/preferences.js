@@ -21,7 +21,7 @@ const preferences = () => {
           <h1>PICK YOUR PREFERENCES {username}</h1>
         </div>
       ) : (
-        <h1>NON HAI PREFERENZE</h1>
+        <h1>NON HAI PREFERENZE {username}</h1>
       )}
     </>
   );
