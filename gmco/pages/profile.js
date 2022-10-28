@@ -1,15 +1,17 @@
 import UserContext from "../components/utility/UserContext";
 import { useContext } from "react";
 import Navbar from "../components/UI/Navbar";
-import { redirect } from "next/dist/server/api-utils";
+import { useRouter } from "next/router";
 
 const profile = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const username = JSON.parse(localStorage.getItem(user)).username;
+  const router = useRouter();
 
   return (
     <>
       <Navbar />
-      <h1>This is your Profile Page {user}</h1>
+      <h1>This is your Profile Page {username}</h1>
       <div className="list-group">
         <button
           type="button"
@@ -21,17 +23,14 @@ const profile = () => {
           type="button"
           className="list-group-item list-group-item-action"
         >
-          SET BIOGRAPHY
-        </button>
-        <button
-          type="button"
-          className="list-group-item list-group-item-action"
-        >
           UPDATE PASSWORD
         </button>
         <button
           type="button"
           className="list-group-item list-group-item-action"
+          onClick={() => {
+            router.push("/" + "preferences");
+          }}
         >
           SET YOUR PREFERENCES
         </button>

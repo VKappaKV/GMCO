@@ -5,6 +5,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   const { user, setUser } = useContext(UserContext);
+  const username = JSON.parse(localStorage.getItem(user)).username;
 
   const router = useRouter();
   return (
@@ -43,7 +44,7 @@ export default function Navbar() {
             router.push("/" + "");
           }}
         >
-          Logout {user}
+          Logout {username}
         </button>
       </div>
     </nav>

@@ -28,7 +28,7 @@ function Modal(props) {
     console.log(user);
     const getUsername = JSON.parse(localStorage.getItem(email_login));
     console.log(getUsername.username);
-    setUser(getUsername.username);
+    setUser(email_login);
     router.push("/" + "homepage");
   }
 
