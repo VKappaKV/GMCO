@@ -1,24 +1,18 @@
-const AuthTokenCall = () => {
+const AuthTokenCall = async () => {
   const client_id = "e36e1d9681c6419bb61c3e9638d2b917";
   const client_secret = "acf8a0b68ff04eb096c4c27f0cd6ebf5";
-  var url = "https://accounts.spotify.com/api/token";
-  var TOKEN;
+  const url = "https://accounts.spotify.com/api/token";
 
-  fetch(url, {
+  const result = await fetch(url, {
     method: "POST",
     headers: {
       Authorization: "Basic " + btoa(`${client_id}:${client_secret}`),
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: new URLSearchParams({ grant_type: "client_credentials" }),
-  })
-    .then((response) => response.json())
-    .then((tokenResponse) => {
-      TOKEN = tokenResponse.access_token;
-      console.log(tokenResponse.access_token);
-    });
-
-  return TOKEN;
+  });
+  const data = await result.json();
+  return data.access_token;
 };
 
 export default AuthTokenCall;

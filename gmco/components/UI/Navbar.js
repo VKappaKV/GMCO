@@ -41,6 +41,7 @@ export default function Navbar() {
         <button
           onClick={() => {
             router.push("/" + "");
+            localStorage.setItem("Token", "");
           }}
         >
           Logout {username}
