@@ -1,6 +1,8 @@
 import UserContext from "../components/utility/UserContext";
 import { useContext, useEffect, useState } from "react";
 import Navbar from "../components/UI/Navbar";
+import AuthTokenCall from "../components/SpotifyAPIHandlers/AuthTokenCall";
+import GetCategories from "../components/SpotifyAPIHandlers/GetCategoriesCall";
 
 const preferences = () => {
   const { user } = useContext(UserContext);
@@ -9,19 +11,40 @@ const preferences = () => {
   const username = trackedUser.username;
 
   useEffect(() => {
+    const getToken = async () => {
+      const auth_token = await AuthTokenCall();
+      return auth_token;
+    };
+    const handleCategorie = async (accessToken) => {
+      const dataResponse = await GetCategories(accessToken);
+      return dataResponse;
+    };
+
     if ("preferenze" in trackedUser) {
       setPreferenze(true);
     }
+    if (!localStorage.getItem("Token")) {
+      getToken().then((accessToken) => {
+        console.log("[PREFERENCES] Imposto il Token: ", accessToken);
+        localStorage.setItem("Token", accessToken);
+      });
+    }
+    const auth_token = localStorage.getItem("Token");
+    handleCategorie(auth_token).then((response) => {
+      console.log(response);
+    });
   }, []);
+
+  //-----------------------------
   return (
     <>
       <Navbar />
       {preferenze ? (
         <div>
-          <h1>PICK YOUR PREFERENCES {username}</h1>
+          <h1>HERE ARE YOUR PREFERENCES {username}</h1>
         </div>
       ) : (
-        <h1>NON HAI PREFERENZE {username}</h1>
+        <h1>YOU HAVE NO PREFERENCES {username}</h1>
       )}
     </>
   );

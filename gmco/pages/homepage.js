@@ -16,7 +16,7 @@ const homepage = () => {
     };
     if (!localStorage.getItem("Token")) {
       getToken().then((responseToken) => {
-        console.log("IMPOSTO L'ACCESS TOKEN: ", responseToken);
+        console.log("[HOMEPAGE] IMPOSTO L'ACCESS TOKEN: ", responseToken);
         localStorage.setItem("Token", responseToken);
       });
     }
