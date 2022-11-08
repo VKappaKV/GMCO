@@ -5,7 +5,7 @@ const CategoriesList = (props) => {
   return (
     <ul>
       {list?.map((i) => (
-        <CategoryItem name={i.name} key={i.id} icons={i.icons} />
+        <CategoryItem name={i.name} key={i.id} />
       ))}
     </ul>
   );

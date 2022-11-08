@@ -37,10 +37,6 @@ const preferences = () => {
     });
   }, []);
 
-  //-----------------------------
-  //debug: {  /*<CategoriesList data={data} /> */}
-  //finale2: {data ? null : <CategoriesList data={data} />}
-  //final: <CategoriesList data={data} />
   return (
     <>
       <Navbar />
