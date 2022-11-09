@@ -7,9 +7,7 @@ import CategoriesList from "../components/UI/CategoriesList";
 
 const preferences = () => {
   const { user } = useContext(UserContext);
-  const [preferenze, setPreferenze] = useState(false);
   const trackedUser = JSON.parse(localStorage.getItem(user));
-  const username = trackedUser.username;
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -22,9 +20,6 @@ const preferences = () => {
       return dataResponse;
     };
 
-    if ("preferenze" in trackedUser) {
-      setPreferenze(true);
-    }
     if (!localStorage.getItem("Token")) {
       getToken().then((accessToken) => {
         console.log("[PREFERENCES] Imposto il Token: ", accessToken);
@@ -40,17 +35,7 @@ const preferences = () => {
   return (
     <>
       <Navbar />
-      {preferenze ? (
-        <div>
-          <h1>HERE ARE YOUR PREFERENCES {username}</h1>
-          {data ? <CategoriesList data={data} /> : null}
-        </div>
-      ) : (
-        <div>
-          <h1>YOU HAVE NO PREFERENCES {username}</h1>
-          {data ? <CategoriesList data={data} /> : null}
-        </div>
-      )}
+      <div>{data ? <CategoriesList data={data} /> : null}</div>
     </>
   );
 };

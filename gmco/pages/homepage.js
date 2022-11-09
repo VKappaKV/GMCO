@@ -40,6 +40,10 @@ const homepage = () => {
         <Navbar />
         <h1> THIS IS THE HOMEPAGE </h1>
         <p>BEN ARRIVATO {username}</p>
+        <button onClick={() => router.push("/" + "newPlaylist")}>
+          {" "}
+          CREA NUOVA PLAYLIST
+        </button>
         <h3>LE TUE PLAYLIST</h3>
         <h3>PLAYLIST PUBBLICHE</h3>
       </>
