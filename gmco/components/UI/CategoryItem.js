@@ -16,12 +16,10 @@ const CategoryItem = (props) => {
     console.log("MI PIACE: ", name);
     const userObj = JSON.parse(localStorage.getItem(user));
     if ("preferenze" in userObj) {
-      console.log("HO LA KEY PREFERENZE");
       userObj.preferenze.push(name);
       const jsonObj = JSON.stringify(userObj);
       localStorage.setItem(user, jsonObj);
     } else {
-      console.log("NON HO LA KEY");
       userObj.preferenze = [];
       userObj.preferenze.push(name);
       const jsonObj = JSON.stringify(userObj);
