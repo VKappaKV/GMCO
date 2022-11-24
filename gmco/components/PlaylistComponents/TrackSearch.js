@@ -17,7 +17,7 @@ const TrackSearch = ({ onSearch, handleObj }) => {
     SearchCall(accessToken, searchItem)
       .then((response) => {
         console.log(response);
-        handleObj(searchItem);
+        handleObj(response.tracks.items);
         onSearch(false);
       })
       .catch((e) => console.log(e));

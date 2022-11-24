@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import Head from "next/head";
 import Script from "next/script";
 import { UserContextProvider } from "../components/utility/UserContext";
+import { PlaylistContextProvider } from "../components/utility/PlaylistContext";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -16,7 +17,9 @@ function MyApp({ Component, pageProps }) {
         crossOrigin="anonymous"
       />
       <UserContextProvider>
-        <Component {...pageProps} />
+        <PlaylistContextProvider>
+          <Component {...pageProps} />
+        </PlaylistContextProvider>
       </UserContextProvider>
     </>
   );
