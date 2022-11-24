@@ -37,6 +37,7 @@ const profile = () => {
         <button
           type="button"
           className="list-group-item list-group-item-action"
+          style={{ color: "red" }}
         >
           DELETE USER
         </button>

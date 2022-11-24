@@ -27,9 +27,11 @@ const preferences = () => {
       });
     }
     const auth_token = localStorage.getItem("Token");
-    handleCategorie(auth_token).then((response) => {
-      setData(response.categories.items);
-    });
+    handleCategorie(auth_token)
+      .then((response) => {
+        setData(response.categories.items);
+      })
+      .catch((e) => console.log(e));
   }, []);
 
   return (
