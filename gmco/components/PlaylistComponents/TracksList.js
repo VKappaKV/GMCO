@@ -34,8 +34,14 @@ const TracksList = ({ onSearch, objData, addSongs }) => {
         <button
           onClick={() => {
             SetConfirm(true);
-            addSongs(list);
-            SetPlaylist((p) => ({ ...p, songs: p.songs.push(list) }));
+            // addSongs(list);
+            playlist.songs.push(...list);
+            onSearch(true);
+            // SetPlaylist((p) => ({ ...p, ([...songs,...list]) }));
+            /* SetPlaylist((p) => {
+              console.log("dentro il SetPlaylist", p);
+              return p;
+            }); */
             console.log("Ora aggiungo: ", list, "alla playlist");
             console.log(playlist);
           }}

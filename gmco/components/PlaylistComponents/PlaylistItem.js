@@ -1,8 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import PlaylistContext from "../utility/PlaylistContext";
 
 const PlaylistItem = () => {
   const { playlist, SetPlaylist } = useContext(PlaylistContext);
+  useEffect(() => {
+    console.log("la playlist appare così: ", playlist);
+  }, [playlist]);
 
   return (
     <div>
@@ -14,7 +17,7 @@ const PlaylistItem = () => {
           {playlist.songs.map((track) => (
             <li key={track.id}>
               {track.name} by:{" "}
-              {track.artists.map((artist) => {
+              {track.artists?.map((artist) => {
                 const names = artist.name + " ";
                 return names;
               })}
