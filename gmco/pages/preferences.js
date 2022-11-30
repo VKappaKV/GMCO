@@ -6,8 +6,6 @@ import GetCategories from "../components/SpotifyAPIHandlers/GetCategoriesCall";
 import CategoriesList from "../components/UI/CategoriesList";
 
 const preferences = () => {
-  const { user } = useContext(UserContext);
-  const trackedUser = JSON.parse(localStorage.getItem(user));
   const [data, setData] = useState();
 
   useEffect(() => {
@@ -21,10 +19,12 @@ const preferences = () => {
     };
 
     if (!localStorage.getItem("Token")) {
-      getToken().then((accessToken) => {
-        console.log("[PREFERENCES] Imposto il Token: ", accessToken);
-        localStorage.setItem("Token", accessToken);
-      });
+      getToken()
+        .then((accessToken) => {
+          console.log("[PREFERENCES] Imposto il Token: ", accessToken);
+          localStorage.setItem("Token", accessToken);
+        })
+        .catch((e) => console.log("cannot get the token: ", e));
     }
     const auth_token = localStorage.getItem("Token");
     handleCategorie(auth_token)

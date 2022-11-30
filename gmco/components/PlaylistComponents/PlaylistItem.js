@@ -1,8 +1,6 @@
-import { useContext, useEffect } from "react";
-import PlaylistContext from "../utility/PlaylistContext";
+import { useEffect } from "react";
 
-const PlaylistItem = () => {
-  const { playlist, SetPlaylist } = useContext(PlaylistContext);
+const PlaylistItem = ({ playlist }) => {
   useEffect(() => {
     console.log("la playlist appare così: ", playlist);
   }, [playlist]);

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
-import AuthTokenCall from "../components/SpotifyAPIHandlers/AuthTokenCall";
+import { useContext, useEffect, useState } from "react";
+import PlaylistList from "../components/PlaylistComponents/PlaylistList";
 import Navbar from "../components/UI/Navbar";
 import UserContext from "../components/utility/UserContext";
 
@@ -8,18 +8,25 @@ const homepage = () => {
   const { user } = useContext(UserContext);
   const router = useRouter();
   const username = JSON.parse(localStorage.getItem(user)).username;
-
+  const [privp, SetPrivP] = useState([]);
+  const [pp, Setpp] = useState([]);
+  const [dodo, SetonDD] = useState(false);
   useEffect(() => {
-    const getToken = async () => {
-      const auth_token = await AuthTokenCall();
-      return auth_token;
-    };
-    if (!localStorage.getItem("Token")) {
-      getToken().then((responseToken) => {
-        console.log("[HOMEPAGE] IMPOSTO L'ACCESS TOKEN: ", responseToken);
-        localStorage.setItem("Token", responseToken);
-      });
+    pp.push(JSON.parse(localStorage.getItem("public playlists")));
+    console.log("caricate: ", pp);
+    SetonDD(!dodo);
+
+    if (pp !== null) {
+      try {
+        pp[0]?.map((i) => console.log(i, i.author, typeof i, typeof pp));
+      } catch (error) {
+        console.log(error);
+      }
     }
+    const userObj = JSON.parse(localStorage.getItem(user));
+    const prvp = userObj.playlist ? userObj.playlist : null;
+    console.log("my playlist are : ", prvp);
+    if (prvp) SetPrivP(prvp);
   }, []);
 
   if (!user) {
@@ -45,7 +52,9 @@ const homepage = () => {
           CREA NUOVA PLAYLIST
         </button>
         <h3>LE TUE PLAYLIST</h3>
+        <PlaylistList pp={privp} />
         <h3>PLAYLIST PUBBLICHE</h3>
+        <PlaylistList pp={pp[0]} />
       </>
     );
   }
