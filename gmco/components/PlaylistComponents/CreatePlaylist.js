@@ -1,12 +1,15 @@
 import { useContext, useState } from "react";
 import PlaylistContext from "../utility/PlaylistContext";
+import UserContext from "../utility/UserContext";
 
 const CreatePlaylist = (props) => {
   const { playlist, SetPlaylist } = useContext(PlaylistContext);
+  const { user } = useContext(UserContext);
 
   const handleSubmit = () => {
     console.log("SUBMITTED");
     console.log(playlist);
+    SetPlaylist({ ...playlist, author: user });
     setTimeout(50);
     props.onCreate();
   };

@@ -1,13 +1,20 @@
-import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
+import PlaylistContext from "../utility/PlaylistContext";
 
-const PlaylistItem = ({ playlist }) => {
+const PlaylistItem = ({ playlist, editable }) => {
+  const [showEditButton, SetShowEditButton] = useState(false);
+  const { SetPlaylist } = useContext(PlaylistContext);
+  const router = useRouter();
   useEffect(() => {
     console.log("la playlist appare così: ", playlist);
+    if (editable) SetShowEditButton(true);
   }, [playlist]);
 
   return (
     <div>
       <h3>{playlist.name}</h3>
+      <h6>{playlist.author}</h6>
       <div>
         TAG: #{playlist.tag} <br /> description: {playlist.description} <br />{" "}
         songs:{" "}
@@ -23,6 +30,17 @@ const PlaylistItem = ({ playlist }) => {
           ))}
         </ul>
       </div>
+      {showEditButton && (
+        <button
+          onClick={() => {
+            SetPlaylist(playlist);
+            router.push("/newPlaylist");
+          }}
+        >
+          {" "}
+          EDIT{" "}
+        </button>
+      )}
     </div>
   );
 };

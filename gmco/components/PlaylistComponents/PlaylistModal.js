@@ -7,23 +7,19 @@ import UserContext from "../utility/UserContext";
 const PlaylistModal = (props) => {
   const { user } = useContext(UserContext);
   const [selectedOption, onSelect] = useState();
-  const { playlist } = useContext(PlaylistContext);
+  const { playlist, SetPlaylist } = useContext(PlaylistContext);
   const router = useRouter();
 
   const AddPublicPlaylist = () => {
     const pp = JSON.parse(localStorage.getItem("public playlists") || "[]");
     pp.push(playlist);
     localStorage.setItem("public playlists", JSON.stringify(pp));
-    /*  console.log(
-      "final log: ",
-      JSON.parse(localStorage.getItem("public playlists"))
-    ); */
+
     AddPlaylistToProfile();
   };
 
   const AddPlaylistToProfile = () => {
     const us = JSON.parse(localStorage.getItem(user));
-    /*  console.log("user: ", us); */
     if ("playlist" in us) {
       us.playlist.push(playlist);
       console.log("ESISTE: ", us);
@@ -42,12 +38,26 @@ const PlaylistModal = (props) => {
         console.log("creo playlist pubblica");
         console.log(playlist);
         AddPublicPlaylist();
+        SetPlaylist({
+          name: "",
+          tag: "",
+          description: "",
+          songs: [],
+          author: user,
+        });
         router.push("/homepage");
         break;
       case "privata":
         console.log("creo playlist privata");
         console.log(playlist);
         AddPlaylistToProfile();
+        SetPlaylist({
+          name: "",
+          tag: "",
+          description: "",
+          songs: [],
+          author: user,
+        });
         router.push("/homepage");
         break;
       default:

@@ -11,9 +11,9 @@ import UserContext from "../components/utility/UserContext";
 
 const newPlaylist = () => {
   const { user } = useContext(UserContext);
+  const { playlist, SetPlaylist } = useContext(PlaylistContext);
   const [modal, onModalChange] = useState(false);
   const [isCreated, SetisCreated] = useState(false);
-  const { playlist, SetPlaylist } = useContext(PlaylistContext);
   const [willSearch, SetwillSearch] = useState(true);
   const [searchObj, SetsearchObj] = useState();
 
@@ -44,14 +44,16 @@ const newPlaylist = () => {
       author: user,
     });
   };
+
+  const isEmpty = (obj) => {
+    if (!obj.name && !obj.tag && !obj.description && !obj.songs.lenght)
+      return true;
+    else return false;
+  };
+
   useEffect(() => {
-    SetPlaylist({
-      name: "",
-      tag: "",
-      description: "",
-      songs: [],
-      author: user,
-    });
+    console.log(playlist);
+    if (!isEmpty(playlist)) SetisCreated(true);
   }, []);
 
   return (

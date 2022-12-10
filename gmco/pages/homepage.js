@@ -52,9 +52,9 @@ const homepage = () => {
           CREA NUOVA PLAYLIST
         </button>
         <h3>LE TUE PLAYLIST</h3>
-        <PlaylistList pp={privp} />
+        <PlaylistList pp={privp} modify={true} />
         <h3>PLAYLIST PUBBLICHE</h3>
-        <PlaylistList pp={pp[0]} />
+        <PlaylistList pp={pp[0]} modify={false} />
       </>
     );
   }
