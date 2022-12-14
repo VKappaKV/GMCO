@@ -29,10 +29,6 @@ const newPlaylist = () => {
     console.log("ON CREATION: ", playlist);
     SetisCreated(true);
   };
-  const AddSongsToPlaylist = (songs) => {
-    SetPlaylist((playlist) => ({ ...playlist, [playlist.songs]: songs }));
-    console.log("UPDATING PLAYLIST TO: ", playlist);
-  };
 
   const handlePlaylistReset = () => {
     SetisCreated(false);
@@ -82,11 +78,7 @@ const newPlaylist = () => {
         willSearch ? (
           <TrackSearch onSearch={SetwillSearch} handleObj={SetsearchObj} />
         ) : (
-          <TracksList
-            onSearch={SetwillSearch}
-            objData={searchObj}
-            addSongs={AddSongsToPlaylist}
-          />
+          <TracksList onSearch={SetwillSearch} objData={searchObj} />
         )
       ) : null}
       {modal && <PlaylistModal closeModal={closeModalHandler} />}

@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import PlaylistContext from "../utility/PlaylistContext";
 
-const TracksList = ({ onSearch, objData, addSongs }) => {
+const TracksList = ({ onSearch, objData }) => {
   const [confirm, SetConfirm] = useState(false);
   const [list, SetList] = useState(new Array());
-  const { playlist, SetPlaylist } = useContext(PlaylistContext);
+  const { playlist } = useContext(PlaylistContext);
 
   const RemoveSong = (song) => {
     console.log(list);
@@ -34,14 +34,8 @@ const TracksList = ({ onSearch, objData, addSongs }) => {
         <button
           onClick={() => {
             SetConfirm(true);
-            // addSongs(list);
             playlist.songs.push(...list);
             onSearch(true);
-            // SetPlaylist((p) => ({ ...p, ([...songs,...list]) }));
-            /* SetPlaylist((p) => {
-              console.log("dentro il SetPlaylist", p);
-              return p;
-            }); */
             console.log("Ora aggiungo: ", list, "alla playlist");
             console.log(playlist);
           }}

@@ -1,11 +1,21 @@
-import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import PlaylistContext from "../utility/PlaylistContext";
+import Backdrop from "../LoginComponents/Backdrop";
+import styles from "./PlaylistModal.module.css";
 
 const PlaylistItem = ({ playlist, editable }) => {
   const [showEditButton, SetShowEditButton] = useState(false);
   const { SetPlaylist } = useContext(PlaylistContext);
-  const router = useRouter();
+  const [modal, SetModal] = useState(false);
+
+  function deleteHandler() {
+    SetModal(true);
+  }
+
+  function closeModalHandler() {
+    SetModal(false);
+  }
+
   useEffect(() => {
     console.log("la playlist appare così: ", playlist);
     if (editable) SetShowEditButton(true);
@@ -34,15 +44,58 @@ const PlaylistItem = ({ playlist, editable }) => {
         <button
           onClick={() => {
             SetPlaylist(playlist);
-            router.push("/newPlaylist");
+            SetModal(true);
           }}
         >
           {" "}
           EDIT{" "}
         </button>
       )}
+      {modal && <EditPlaylist closeModal={closeModalHandler} />}
+      {modal && <Backdrop onCancel={closeModalHandler} />}
     </div>
   );
 };
 
 export default PlaylistItem;
+
+const EditPlaylist = ({ closeModal }) => {
+  const { playlist, SetPlaylist } = useContext(PlaylistContext);
+
+  const handleConfirm = () => {
+    closeModal();
+  };
+
+  return (
+    <div className={styles.modal}>
+      <input
+        id="nome-playlist"
+        type="text"
+        value={playlist.name}
+        required
+        onChange={(e) => SetPlaylist({ ...playlist, name: e.target.value })}
+      />
+      <input
+        id="tag-playlist"
+        type="text"
+        value={playlist.tag}
+        required
+        onChange={(e) => SetPlaylist({ ...playlist, tag: e.target.value })}
+      />
+      <br />
+      <textarea
+        id="descrizione-playlist"
+        value={playlist.description}
+        rows="3"
+        cols="30"
+        onChange={(e) =>
+          SetPlaylist({ ...playlist, description: e.target.value })
+        }
+      />
+      <button onClick={handleConfirm}> CONFERMA MODIFICHE </button>
+      <button onClick={() => closeModal()}>Annulla</button>
+    </div>
+  );
+};
+
+export { EditPlaylist };

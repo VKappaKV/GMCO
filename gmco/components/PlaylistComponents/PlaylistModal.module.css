@@ -6,7 +6,7 @@
   justify-content: space-evenly;
   padding: 1rem;
   text-align: center;
-  width: 30rem;
+  width: fit-content;
   z-index: 10;
   position: fixed;
   top: 20vh;

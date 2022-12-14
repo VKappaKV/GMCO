@@ -6,8 +6,8 @@ import Link from "next/link";
 export default function Navbar() {
   const { user } = useContext(UserContext);
   const username = JSON.parse(localStorage.getItem(user)).username;
-
   const router = useRouter();
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
