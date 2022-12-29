@@ -2,9 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import PlaylistContext from "../utility/PlaylistContext";
 import Backdrop from "../LoginComponents/Backdrop";
 import styles from "./PlaylistModal.module.css";
+import { useRouter } from "next/router";
 
 const PlaylistItem = ({ playlist, editable }) => {
   const [showEditButton, SetShowEditButton] = useState(false);
+  const router = useRouter();
   const { SetPlaylist } = useContext(PlaylistContext);
   const [modal, SetModal] = useState(false);
 
@@ -41,15 +43,25 @@ const PlaylistItem = ({ playlist, editable }) => {
         </ul>
       </div>
       {showEditButton && (
-        <button
-          onClick={() => {
-            SetPlaylist(playlist);
-            SetModal(true);
-          }}
-        >
-          {" "}
-          EDIT{" "}
-        </button>
+        <div>
+          <button
+            onClick={() => {
+              SetPlaylist(playlist);
+              SetModal(true);
+            }}
+          >
+            {" "}
+            EDIT{" "}
+          </button>
+          <button
+            onClick={() => {
+              SetPlaylist(playlist);
+              router.push("/" + "newPlaylist");
+            }}
+          >
+            Add Songs
+          </button>
+        </div>
       )}
       {modal && <EditPlaylist closeModal={closeModalHandler} />}
       {modal && <Backdrop onCancel={closeModalHandler} />}

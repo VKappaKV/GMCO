@@ -2,15 +2,18 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import PlaylistList from "../components/PlaylistComponents/PlaylistList";
 import Navbar from "../components/UI/Navbar";
+import PlaylistContext from "../components/utility/PlaylistContext";
 import UserContext from "../components/utility/UserContext";
 
 const homepage = () => {
   const { user } = useContext(UserContext);
+  const { SetPlaylist } = useContext(PlaylistContext);
   const router = useRouter();
   const username = JSON.parse(localStorage.getItem(user)).username;
   const [privp, SetPrivP] = useState([]);
   const [pp, Setpp] = useState([]);
   const [dodo, SetonDD] = useState(false);
+
   useEffect(() => {
     pp.push(JSON.parse(localStorage.getItem("public playlists")));
     console.log("caricate: ", pp);
@@ -28,6 +31,17 @@ const homepage = () => {
     console.log("my playlist are : ", prvp);
     if (prvp) SetPrivP(prvp);
   }, []);
+
+  const handleRoutingToNewPlaylist = () => {
+    router.push("/" + "newPlaylist");
+    SetPlaylist({
+      name: "",
+      tag: "",
+      description: "",
+      songs: [],
+      author: user,
+    });
+  };
 
   if (!user) {
     return (
@@ -47,8 +61,7 @@ const homepage = () => {
         <Navbar />
         <h1> THIS IS THE HOMEPAGE </h1>
         <p>BEN ARRIVATO {username}</p>
-        <button onClick={() => router.push("/" + "newPlaylist")}>
-          {" "}
+        <button onClick={handleRoutingToNewPlaylist}>
           CREA NUOVA PLAYLIST
         </button>
         <h3>LE TUE PLAYLIST</h3>
