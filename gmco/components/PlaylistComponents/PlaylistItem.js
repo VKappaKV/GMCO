@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import PlaylistContext from "../utility/PlaylistContext";
 import Backdrop from "../LoginComponents/Backdrop";
-import styles from "./PlaylistModal.module.css";
 import { useRouter } from "next/router";
+import styles from "./PlaylistItem.module.css";
 
 const PlaylistItem = ({ playlist, editable }) => {
   const [showEditButton, SetShowEditButton] = useState(false);
@@ -73,13 +73,27 @@ export default PlaylistItem;
 
 const EditPlaylist = ({ closeModal }) => {
   const { playlist, SetPlaylist } = useContext(PlaylistContext);
+  const [before, SetBefore] = useState();
 
   const handleConfirm = () => {
+    const bfPl = JSON.parse(localStorage.getItem(user)).playlist;
+    console.log(bfPl);
+    bfPl.pop(before);
     closeModal();
   };
 
+  function deleteTrack(track) {
+    console.log("cancello: ", track);
+    before.songs.pop(track);
+  }
+
+  useEffect(() => {
+    SetBefore(playlist);
+    console.log(before);
+  }, []);
+
   return (
-    <div className={styles.modal}>
+    <div className={styles.modalEdit}>
       <input
         id="nome-playlist"
         type="text"
@@ -104,6 +118,17 @@ const EditPlaylist = ({ closeModal }) => {
           SetPlaylist({ ...playlist, description: e.target.value })
         }
       />
+      <ul>
+        {playlist.songs.map((track) => (
+          <li key={track.id} onClick={() => deleteTrack(track)}>
+            {track.artists?.map((artist) => {
+              const names = artist.name + " ";
+              return names;
+            })}
+            : {track.name}
+          </li>
+        ))}
+      </ul>
       <button onClick={handleConfirm}> CONFERMA MODIFICHE </button>
       <button onClick={() => closeModal()}>Annulla</button>
     </div>
