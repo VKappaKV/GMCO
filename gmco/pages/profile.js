@@ -23,9 +23,18 @@ const profile = () => {
   function removeAllUserPlaylist() {
     const getplaylists = JSON.parse(localStorage.getItem("public playlists"));
     console.log(getplaylists);
-    const filteredPlaylist = getplaylists.filter((i) => i.author !== user);
-    console.log(filteredPlaylist);
-    localStorage.setItem("public playlists", JSON.stringify(filteredPlaylist));
+    try {
+      if (!getplaylists) return;
+      const filteredPlaylist = getplaylists.filter((i) => i.author !== user);
+      console.log(filteredPlaylist);
+      localStorage.setItem(
+        "public playlists",
+        JSON.stringify(filteredPlaylist)
+      );
+    } catch (error) {
+      console.log(error);
+      return;
+    }
   }
 
   return (

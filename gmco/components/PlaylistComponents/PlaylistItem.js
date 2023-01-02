@@ -3,6 +3,7 @@ import PlaylistContext from "../utility/PlaylistContext";
 import Backdrop from "../LoginComponents/Backdrop";
 import { useRouter } from "next/router";
 import styles from "./PlaylistItem.module.css";
+import UserContext from "../utility/UserContext";
 
 const PlaylistItem = ({ playlist, editable }) => {
   const [showEditButton, SetShowEditButton] = useState(false);
@@ -63,7 +64,9 @@ const PlaylistItem = ({ playlist, editable }) => {
           </button>
         </div>
       )}
-      {modal && <EditPlaylist closeModal={closeModalHandler} />}
+      {modal && (
+        <EditPlaylist closeModal={closeModalHandler} playlist={playlist} />
+      )}
       {modal && <Backdrop onCancel={closeModalHandler} />}
     </div>
   );
@@ -71,24 +74,26 @@ const PlaylistItem = ({ playlist, editable }) => {
 
 export default PlaylistItem;
 
-const EditPlaylist = ({ closeModal }) => {
-  const { playlist, SetPlaylist } = useContext(PlaylistContext);
+const EditPlaylist = ({ closeModal, playlist }) => {
+  const { user } = useContext(UserContext);
   const [before, SetBefore] = useState();
 
   const handleConfirm = () => {
-    const bfPl = JSON.parse(localStorage.getItem(user)).playlist;
-    console.log(bfPl);
-    bfPl.pop(before);
+    const userPlaylists = JSON.parse(localStorage.getItem(user)).playlist;
+    console.log(userPlaylists);
+    console.log(before);
     closeModal();
   };
 
   function deleteTrack(track) {
     console.log("cancello: ", track);
-    before.songs.pop(track);
+    const cleanedPlaylist = before.songs.filter((i) => i !== track);
+    SetBefore({ ...before, songs: cleanedPlaylist });
   }
 
   useEffect(() => {
-    SetBefore(playlist);
+    const anotherbefore = playlist;
+    SetBefore(anotherbefore);
     console.log(before);
   }, []);
 
@@ -99,14 +104,14 @@ const EditPlaylist = ({ closeModal }) => {
         type="text"
         value={playlist.name}
         required
-        onChange={(e) => SetPlaylist({ ...playlist, name: e.target.value })}
+        onChange={(e) => SetBefore({ ...before, name: e.target.value })}
       />
       <input
         id="tag-playlist"
         type="text"
         value={playlist.tag}
         required
-        onChange={(e) => SetPlaylist({ ...playlist, tag: e.target.value })}
+        onChange={(e) => SetBefore({ ...before, tag: e.target.value })}
       />
       <br />
       <textarea
@@ -114,21 +119,22 @@ const EditPlaylist = ({ closeModal }) => {
         value={playlist.description}
         rows="3"
         cols="30"
-        onChange={(e) =>
-          SetPlaylist({ ...playlist, description: e.target.value })
-        }
+        onChange={(e) => SetBefore({ ...before, description: e.target.value })}
       />
-      <ul>
-        {playlist.songs.map((track) => (
-          <li key={track.id} onClick={() => deleteTrack(track)}>
-            {track.artists?.map((artist) => {
-              const names = artist.name + " ";
-              return names;
-            })}
-            : {track.name}
-          </li>
-        ))}
-      </ul>
+      {before && (
+        <ul>
+          {before.songs?.map((track) => (
+            <li key={track.id} onClick={() => deleteTrack(track)}>
+              {track.artists?.map((artist) => {
+                const names = artist.name + " ";
+                return names;
+              })}
+              : {track.name}
+            </li>
+          ))}
+        </ul>
+      )}
+
       <button onClick={handleConfirm}> CONFERMA MODIFICHE </button>
       <button onClick={() => closeModal()}>Annulla</button>
     </div>
