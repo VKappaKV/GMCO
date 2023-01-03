@@ -17,6 +17,7 @@ export default function Home() {
       localStorage.setItem("Token", responseToken);
     });
   }, []);
+
   return (
     <div>
       <Login />

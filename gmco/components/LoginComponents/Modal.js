@@ -46,6 +46,7 @@ function Modal(props) {
     if (typeof window !== "undefined") {
       localStorage.setItem(key, JSON.stringify(user));
     }
+    //fare controllo che utente esisti già
 
     alert(`Utente ${user.username} Registrato con email: ${key}`);
     console.log(user, "stored user");

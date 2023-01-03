@@ -4,12 +4,14 @@ import Backdrop from "../LoginComponents/Backdrop";
 import { useRouter } from "next/router";
 import styles from "./PlaylistItem.module.css";
 import UserContext from "../utility/UserContext";
+import EditingContext from "../utility/EditContext";
 
 const PlaylistItem = ({ playlist, editable }) => {
   const [showEditButton, SetShowEditButton] = useState(false);
   const router = useRouter();
   const { SetPlaylist } = useContext(PlaylistContext);
   const [modal, SetModal] = useState(false);
+  const { key } = useContext(EditingContext);
 
   function deleteHandler() {
     SetModal(true);
@@ -23,6 +25,9 @@ const PlaylistItem = ({ playlist, editable }) => {
     console.log("la playlist appare così: ", playlist);
     if (editable) SetShowEditButton(true);
   }, [playlist]);
+  useEffect(() => {
+    console.log("rendering numero: ", key);
+  }, [key]);
 
   return (
     <div>
@@ -76,17 +81,13 @@ export default PlaylistItem;
 
 const EditPlaylist = ({ closeModal, playlist }) => {
   const { user } = useContext(UserContext);
+  const { key, SetKey } = useContext(EditingContext);
   const [before, SetBefore] = useState();
 
   const handleConfirm = () => {
     const selected_user = JSON.parse(localStorage.getItem(user));
     const userPlaylists = selected_user.playlist;
-    const index = userPlaylists.findIndex(
-      (i) =>
-        i.name == playlist.name &&
-        i.tag == playlist.tag &&
-        i.author == playlist.author
-    );
+    const index = userPlaylists.findIndex((i) => i.id == playlist.id);
     if (index == -1) {
       closeModal();
       return;
@@ -97,6 +98,8 @@ const EditPlaylist = ({ closeModal, playlist }) => {
     userPlaylists.push(before);
     console.log(selected_user);
     localStorage.setItem(user, JSON.stringify(selected_user));
+    console.log("sono qui al render numero: ", key);
+    SetKey((k) => k + 1);
     closeModal();
   };
 

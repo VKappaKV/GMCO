@@ -38,6 +38,7 @@ const newPlaylist = () => {
       description: "",
       songs: [],
       author: user,
+      id: 0,
     });
   };
 

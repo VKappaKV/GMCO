@@ -2,11 +2,13 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import PlaylistList from "../components/PlaylistComponents/PlaylistList";
 import Navbar from "../components/UI/Navbar";
+import EditingContext from "../components/utility/EditContext";
 import PlaylistContext from "../components/utility/PlaylistContext";
 import UserContext from "../components/utility/UserContext";
 
 const homepage = () => {
   const { user } = useContext(UserContext);
+  const { key } = useContext(EditingContext);
   const { SetPlaylist } = useContext(PlaylistContext);
   const router = useRouter();
   const username = JSON.parse(localStorage.getItem(user)).username;
@@ -30,7 +32,7 @@ const homepage = () => {
     const prvp = userObj.playlist ? userObj.playlist : null;
     console.log("my playlist are : ", prvp);
     if (prvp) SetPrivP(prvp);
-  }, []);
+  }, [key]);
 
   const handleRoutingToNewPlaylist = () => {
     router.push("/" + "newPlaylist");
@@ -40,6 +42,7 @@ const homepage = () => {
       description: "",
       songs: [],
       author: user,
+      id: 0,
     });
   };
 

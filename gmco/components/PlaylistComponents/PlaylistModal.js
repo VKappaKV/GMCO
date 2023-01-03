@@ -29,6 +29,11 @@ const PlaylistModal = (props) => {
       console.log("NON ESISTE: ", user_playlist);
     }
     localStorage.setItem(user, JSON.stringify(user_playlist));
+    const count_all_playlists = JSON.parse(
+      localStorage.getItem("playlistCounter") || 0
+    );
+    const count = count_all_playlists + 1;
+    localStorage.setItem("playlistCounter", JSON.stringify(count));
   };
 
   const handleConfirm = () => {
@@ -44,6 +49,7 @@ const PlaylistModal = (props) => {
           description: "",
           songs: [],
           author: user,
+          id: 0,
         });
         router.push("/homepage");
         break;

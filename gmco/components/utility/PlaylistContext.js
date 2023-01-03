@@ -11,6 +11,7 @@ export const PlaylistContextProvider = ({ children }) => {
     description: "",
     songs: [],
     author: user,
+    id: 0,
   });
   return (
     <PlaylistContext.Provider value={{ playlist, SetPlaylist }}>

@@ -3,6 +3,7 @@ import Head from "next/head";
 import Script from "next/script";
 import { UserContextProvider } from "../components/utility/UserContext";
 import { PlaylistContextProvider } from "../components/utility/PlaylistContext";
+import { EditingContextProvider } from "../components/utility/EditContext";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -18,7 +19,9 @@ function MyApp({ Component, pageProps }) {
       />
       <UserContextProvider>
         <PlaylistContextProvider>
-          <Component {...pageProps} />
+          <EditingContextProvider>
+            <Component {...pageProps} />
+          </EditingContextProvider>
         </PlaylistContextProvider>
       </UserContextProvider>
     </>

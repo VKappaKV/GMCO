@@ -10,6 +10,11 @@ const CreatePlaylist = (props) => {
     console.log("SUBMITTED");
     console.log(playlist);
     SetPlaylist({ ...playlist, author: user });
+    const count_all_playlists = JSON.parse(
+      localStorage.getItem("playlistCounter") || 0
+    );
+    const count = count_all_playlists + 1;
+    SetPlaylist({ ...playlist, id: count });
     setTimeout(50);
     props.onCreate();
   };
