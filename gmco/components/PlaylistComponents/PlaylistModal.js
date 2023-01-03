@@ -19,16 +19,16 @@ const PlaylistModal = (props) => {
   };
 
   const AddPlaylistToProfile = () => {
-    const us = JSON.parse(localStorage.getItem(user));
-    if ("playlist" in us) {
-      us.playlist.push(playlist);
-      console.log("ESISTE: ", us);
+    const user_playlist = JSON.parse(localStorage.getItem(user));
+    if ("playlist" in user_playlist) {
+      user_playlist.playlist.push(playlist);
+      console.log("ESISTE: ", user_playlist);
     } else {
-      us.playlist = [];
-      us.playlist.push(playlist);
-      console.log("NON ESISTE: ", us);
+      user_playlist.playlist = [];
+      user_playlist.playlist.push(playlist);
+      console.log("NON ESISTE: ", user_playlist);
     }
-    localStorage.setItem(user, JSON.stringify(us));
+    localStorage.setItem(user, JSON.stringify(user_playlist));
   };
 
   const handleConfirm = () => {
@@ -57,6 +57,7 @@ const PlaylistModal = (props) => {
           description: "",
           songs: [],
           author: user,
+          id: 0,
         });
         router.push("/homepage");
         break;

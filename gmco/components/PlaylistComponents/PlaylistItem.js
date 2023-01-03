@@ -79,9 +79,24 @@ const EditPlaylist = ({ closeModal, playlist }) => {
   const [before, SetBefore] = useState();
 
   const handleConfirm = () => {
-    const userPlaylists = JSON.parse(localStorage.getItem(user)).playlist;
-    console.log(userPlaylists);
+    const selected_user = JSON.parse(localStorage.getItem(user));
+    const userPlaylists = selected_user.playlist;
+    const index = userPlaylists.findIndex(
+      (i) =>
+        i.name == playlist.name &&
+        i.tag == playlist.tag &&
+        i.author == playlist.author
+    );
+    if (index == -1) {
+      closeModal();
+      return;
+    }
+    userPlaylists.splice(index, 1);
+    console.log("senza la playlist scelta", userPlaylists);
     console.log(before);
+    userPlaylists.push(before);
+    console.log(selected_user);
+    localStorage.setItem(user, JSON.stringify(selected_user));
     closeModal();
   };
 
