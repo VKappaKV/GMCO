@@ -8,9 +8,11 @@ import Navbar from "../components/UI/Navbar";
 import PlaylistContext from "../components/utility/PlaylistContext";
 import PlaylistModal from "../components/PlaylistComponents/PlaylistModal";
 import UserContext from "../components/utility/UserContext";
+import { useRouter } from "next/router";
 
 const newPlaylist = () => {
   const { user } = useContext(UserContext);
+  const rt = useRouter();
   const { playlist, SetPlaylist } = useContext(PlaylistContext);
   const [modal, onModalChange] = useState(false);
   const [isCreated, SetisCreated] = useState(false);
@@ -18,6 +20,25 @@ const newPlaylist = () => {
   const [searchObj, SetsearchObj] = useState();
 
   function deleteHandler() {
+    console.log("PLAYLIST IN QUESTO MOMENTO: ", playlist);
+    const check_user = JSON.parse(localStorage.getItem(user));
+    if (check_user.playlist) {
+      const foundItem = check_user.playlist.find(
+        (item) => item.id === playlist.id
+      );
+      console.log("l'ho trovato ", foundItem);
+      if (foundItem) {
+        const filtered = check_user.playlist.filter(
+          (i) => i.id !== playlist.id
+        );
+        check_user.playlist = filtered;
+        console.log(check_user);
+        console.log("aggiungo la playlist modificata", playlist);
+        check_user.playlist.push(playlist);
+        localStorage.setItem(user, JSON.stringify(check_user));
+        rt.push("/homepage");
+      }
+    }
     onModalChange(true);
   }
 

@@ -120,21 +120,21 @@ const EditPlaylist = ({ closeModal, playlist }) => {
       <input
         id="nome-playlist"
         type="text"
-        value={playlist.name}
+        placeholder={playlist.name}
         required
         onChange={(e) => SetBefore({ ...before, name: e.target.value })}
       />
       <input
         id="tag-playlist"
         type="text"
-        value={playlist.tag}
+        placeholder={playlist.tag}
         required
         onChange={(e) => SetBefore({ ...before, tag: e.target.value })}
       />
       <br />
       <textarea
         id="descrizione-playlist"
-        value={playlist.description}
+        placeholder={playlist.description}
         rows="3"
         cols="30"
         onChange={(e) => SetBefore({ ...before, description: e.target.value })}
