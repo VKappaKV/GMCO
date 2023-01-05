@@ -39,7 +39,7 @@ const PlaylistItem = ({ playlist, editable }) => {
         <ul>
           {playlist.songs.map((track) => (
             <li key={track.id}>
-              {track.name} by:{" "}
+              {track.name} :{" "}
               {track.artists?.map((artist) => {
                 const names = artist.name + " ";
                 return names;
