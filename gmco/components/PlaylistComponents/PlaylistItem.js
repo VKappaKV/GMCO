@@ -5,9 +5,12 @@ import { useRouter } from "next/router";
 import styles from "./PlaylistItem.module.css";
 import UserContext from "../utility/UserContext";
 import EditingContext from "../utility/EditContext";
+import Image from "next/image";
 
 const PlaylistItem = ({ playlist, editable }) => {
   const [showEditButton, SetShowEditButton] = useState(false);
+  const [showInfo, SetShowInfo] = useState(false);
+  const [trackToShow, SetTrackToShow] = useState();
   const router = useRouter();
   const { user } = useContext(UserContext);
   const { SetPlaylist } = useContext(PlaylistContext);
@@ -20,6 +23,14 @@ const PlaylistItem = ({ playlist, editable }) => {
 
   function closeModalHandler() {
     SetModal(false);
+  }
+
+  function ShowInfoHandler() {
+    SetShowInfo(true);
+  }
+
+  function closeInfoHandler() {
+    SetShowInfo(false);
   }
 
   function deletePlaylistHandler() {
@@ -60,7 +71,13 @@ const PlaylistItem = ({ playlist, editable }) => {
         songs:{" "}
         <ul>
           {playlist.songs.map((track) => (
-            <li key={track.id}>
+            <li
+              key={track.id}
+              onClick={() => {
+                SetTrackToShow(track);
+                ShowInfoHandler();
+              }}
+            >
               {track.name} :{" "}
               {track.artists?.map((artist) => {
                 const names = artist.name + " ";
@@ -102,11 +119,41 @@ const PlaylistItem = ({ playlist, editable }) => {
         <EditPlaylist closeModal={closeModalHandler} playlist={playlist} />
       )}
       {modal && <Backdrop onCancel={closeModalHandler} />}
+      {showInfo && <TrackInfo track={trackToShow} />}
+      {showInfo && <Backdrop onCancel={closeInfoHandler} />}
     </div>
   );
 };
 
 export default PlaylistItem;
+
+const TrackInfo = ({ track }) => {
+  useEffect(() => {
+    console.log("DISPLAYING: ", track);
+
+    return () => {
+      console.log("track close");
+    };
+  }, []);
+
+  return (
+    <div className={styles.modal}>
+      <Image src={track.album.images[0].url} width={640} height={640} />
+      <h5>
+        {track.artists?.map((artist) => {
+          const names = artist.name + " ";
+          return names;
+        })}{" "}
+        : {track.name}
+      </h5>
+      <div>
+        <p>
+          ALBUM: <b>{track.album.name}</b> DATE: {track.album.release_date}
+        </p>
+      </div>
+    </div>
+  );
+};
 
 const EditPlaylist = ({ closeModal, playlist }) => {
   const { user } = useContext(UserContext);
