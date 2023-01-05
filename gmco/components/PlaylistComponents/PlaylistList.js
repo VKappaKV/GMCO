@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import EditingContext from "../utility/EditContext";
 import PlaylistItem from "./PlaylistItem";
 
 const PlaylistList = ({ pp, modify }) => {

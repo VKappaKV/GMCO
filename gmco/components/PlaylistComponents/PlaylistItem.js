@@ -9,9 +9,10 @@ import EditingContext from "../utility/EditContext";
 const PlaylistItem = ({ playlist, editable }) => {
   const [showEditButton, SetShowEditButton] = useState(false);
   const router = useRouter();
+  const { user } = useContext(UserContext);
   const { SetPlaylist } = useContext(PlaylistContext);
   const [modal, SetModal] = useState(false);
-  const { key } = useContext(EditingContext);
+  const { key, SetKey } = useContext(EditingContext);
 
   function deleteHandler() {
     SetModal(true);
@@ -19,6 +20,26 @@ const PlaylistItem = ({ playlist, editable }) => {
 
   function closeModalHandler() {
     SetModal(false);
+  }
+
+  function deletePlaylistHandler() {
+    const selected_user = JSON.parse(localStorage.getItem(user));
+    const index = selected_user.playlist.findIndex((i) => i.id === playlist.id);
+    selected_user.playlist.splice(index, 1);
+    localStorage.setItem(user, JSON.stringify(selected_user));
+    SetKey(++key);
+    const public_playlists = JSON.parse(
+      localStorage.getItem("public playlists" || null)
+    );
+    if (!public_playlists) return;
+    const index_public = public_playlists.findIndex(
+      (i) => i.id === playlist.id
+    );
+    console.log("indice ", index_public);
+    if (index_public === -1) return;
+    public_playlists.splice(index_public, 1);
+    SetKey(++key);
+    localStorage.setItem("public playlists", JSON.stringify(public_playlists));
   }
 
   useEffect(() => {
@@ -33,6 +54,7 @@ const PlaylistItem = ({ playlist, editable }) => {
     <div>
       <h3>{playlist.name}</h3>
       <h6>{playlist.author}</h6>
+      <p>{playlist.id}</p>
       <div>
         TAG: #{playlist.tag} <br /> description: {playlist.description} <br />{" "}
         songs:{" "}
@@ -66,6 +88,13 @@ const PlaylistItem = ({ playlist, editable }) => {
             }}
           >
             Add Songs
+          </button>
+          <button
+            onClick={() => {
+              deletePlaylistHandler();
+            }}
+          >
+            DELETE
           </button>
         </div>
       )}
