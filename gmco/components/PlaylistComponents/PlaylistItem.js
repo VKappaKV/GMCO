@@ -53,6 +53,14 @@ const PlaylistItem = ({ playlist, editable }) => {
     localStorage.setItem("public playlists", JSON.stringify(public_playlists));
   }
 
+  const addPlaylistToUserCollection = () => {
+    const selected_user = JSON.parse(localStorage.getItem(user));
+    if (!selected_user.playlist) selected_user.playlist = [];
+    selected_user.playlist.push(playlist);
+    localStorage.setItem(user, JSON.stringify(selected_user));
+    SetKey(++key);
+  };
+
   useEffect(() => {
     console.log("la playlist appare così: ", playlist);
     if (editable) SetShowEditButton(true);
@@ -113,6 +121,11 @@ const PlaylistItem = ({ playlist, editable }) => {
             DELETE
           </button>
         </div>
+      )}
+      {!showEditButton && (
+        <button onClick={addPlaylistToUserCollection}>
+          AGGIUNGI ALLE TUE PLAYLIST
+        </button>
       )}
       {modal && (
         <EditPlaylist closeModal={closeModalHandler} playlist={playlist} />

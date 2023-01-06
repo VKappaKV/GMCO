@@ -11,11 +11,27 @@ const PlaylistSearch = ({ onSearch, playlist, onFilterPlaylist }) => {
     event.preventDefault();
     const searchItem = searchRef.current.value;
     const filtered_collection = playlist.filter(
-      (i) => i.name === searchItem || i.author === searchItem
+      (i) =>
+        i.name.toLowerCase().includes(searchItem.toLowerCase()) ||
+        i.author.toLowerCase().includes(searchItem.toLowerCase()) ||
+        i.tag.toLowerCase().includes(searchItem.toLowerCase()) ||
+        checkSongsmatching(i, searchItem)
     );
     console.log("risultato playlist filtrate: ", filtered_collection);
     onFilterPlaylist(filtered_collection);
     onSearch(false);
+  };
+
+  const checkSongsmatching = (item, value) => {
+    let result = false;
+    item.songs.forEach((i) => {
+      if (
+        i.name.toLowerCase().includes(value.toLowerCase()) ||
+        i.artists[0].name.toLowerCase().includes(value.toLowerCase())
+      )
+        result = true;
+    });
+    return result;
   };
 
   return (
