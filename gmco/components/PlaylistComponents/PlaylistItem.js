@@ -65,7 +65,6 @@ const PlaylistItem = ({ playlist, editable }) => {
     <div>
       <h3>{playlist.name}</h3>
       <h6>{playlist.author}</h6>
-      <p>{playlist.id}</p>
       <div>
         TAG: #{playlist.tag} <br /> description: {playlist.description} <br />{" "}
         songs:{" "}
@@ -136,6 +135,19 @@ const TrackInfo = ({ track }) => {
     };
   }, []);
 
+  function msToHMS(ms) {
+    console.log(ms);
+    // 1- Convert to seconds:
+    let seconds = ms / 1000;
+    seconds = seconds % 3600; // seconds remaining after extracting hours
+    // 3- Extract minutes:
+    const minutes = parseInt(seconds / 60); // 60 seconds in 1 minute
+    // 4- Keep only seconds not extracted to minutes:
+    seconds = seconds % 60;
+    const hms = minutes + ":" + Math.floor(seconds);
+    return hms;
+  }
+
   return (
     <div className={styles.modal}>
       <Image src={track.album.images[0].url} width={640} height={640} />
@@ -148,7 +160,9 @@ const TrackInfo = ({ track }) => {
       </h5>
       <div>
         <p>
-          ALBUM: <b>{track.album.name}</b> DATE: {track.album.release_date}
+          ALBUM: <b>{track.album.name}</b> <br />
+          DATE: {track.album.release_date} <br />
+          DURATION: {msToHMS(track.duration_ms)}
         </p>
       </div>
     </div>
