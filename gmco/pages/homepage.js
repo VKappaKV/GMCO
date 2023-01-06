@@ -28,7 +28,12 @@ const homepage = () => {
   }, [key]);
 
   const FilterPlaylist = (filtered_collection) => {
+    console.log("callbacked: ", filtered_collection);
     Setpp(filtered_collection);
+  };
+
+  const resetPublicPlaylistHandler = () => {
+    Setpp(JSON.parse(localStorage.getItem("public playlists")));
   };
 
   const handleRoutingToNewPlaylist = () => {
@@ -67,12 +72,20 @@ const homepage = () => {
         <h3>LE TUE PLAYLIST</h3>
         <PlaylistList pp={privp} modify={true} />
         <h3>PLAYLIST PUBBLICHE</h3>{" "}
-        <button onClick={() => onSearch(true)}> CERCA PLAYLIST </button>
+        <button
+          onClick={() => {
+            onSearch(true);
+            resetPublicPlaylistHandler();
+          }}
+        >
+          {" "}
+          CERCA PLAYLIST{" "}
+        </button>
         {search && (
           <PlaylistSearch
             onSearch={onSearch}
             playlist={pp}
-            Filterplaylist={Setpp}
+            onFilterPlaylist={FilterPlaylist}
           />
         )}
         <PlaylistList pp={pp} modify={false} />

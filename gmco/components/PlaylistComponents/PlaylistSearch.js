@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 
-const PlaylistSearch = ({ onSearch, playlist, FilterPlaylist }) => {
+const PlaylistSearch = ({ onSearch, playlist, onFilterPlaylist }) => {
   const searchRef = useRef();
 
   useEffect(() => {
@@ -13,7 +13,8 @@ const PlaylistSearch = ({ onSearch, playlist, FilterPlaylist }) => {
     const filtered_collection = playlist.filter(
       (i) => i.name === searchItem || i.author === searchItem
     );
-    FilterPlaylist(filtered_collection);
+    console.log("risultato playlist filtrate: ", filtered_collection);
+    onFilterPlaylist(filtered_collection);
     onSearch(false);
   };
 
