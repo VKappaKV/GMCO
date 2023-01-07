@@ -88,7 +88,7 @@ const homepage = () => {
             onFilterPlaylist={FilterPlaylist}
           />
         )}
-        <PlaylistList pp={pp} modify={false} />
+        <PlaylistList pp={pp} modify={false} pub={true} />
       </>
     );
   }

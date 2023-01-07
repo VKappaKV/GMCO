@@ -7,7 +7,7 @@ import UserContext from "../utility/UserContext";
 import EditingContext from "../utility/EditContext";
 import Image from "next/image";
 
-const PlaylistItem = ({ playlist, editable }) => {
+const PlaylistItem = ({ playlist, editable, pub }) => {
   const [showEditButton, SetShowEditButton] = useState(false);
   const [showInfo, SetShowInfo] = useState(false);
   const [trackToShow, SetTrackToShow] = useState();
@@ -39,6 +39,15 @@ const PlaylistItem = ({ playlist, editable }) => {
     selected_user.playlist.splice(index, 1);
     localStorage.setItem(user, JSON.stringify(selected_user));
     SetKey(++key);
+    console.log(
+      "autore?",
+      playlist.author,
+      "io: ",
+      user,
+      "uguali? ",
+      playlist.author === user
+    );
+    if (user !== playlist.author) return;
     const public_playlists = JSON.parse(
       localStorage.getItem("public playlists" || null)
     );
@@ -54,8 +63,16 @@ const PlaylistItem = ({ playlist, editable }) => {
   }
 
   const addPlaylistToUserCollection = () => {
+    if (user == playlist.author) {
+      alert("Playlist already collected, you are the owner");
+      return;
+    }
     const selected_user = JSON.parse(localStorage.getItem(user));
     if (!selected_user.playlist) selected_user.playlist = [];
+    if (selected_user.playlist.find((i) => i.id == playlist.id)) {
+      alert("you already have this playlist in your collection");
+      return;
+    }
     selected_user.playlist.push(playlist);
     localStorage.setItem(user, JSON.stringify(selected_user));
     SetKey(++key);
@@ -122,7 +139,7 @@ const PlaylistItem = ({ playlist, editable }) => {
           </button>
         </div>
       )}
-      {!showEditButton && (
+      {pub && (
         <button onClick={addPlaylistToUserCollection}>
           AGGIUNGI ALLE TUE PLAYLIST
         </button>

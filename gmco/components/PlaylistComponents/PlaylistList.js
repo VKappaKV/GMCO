@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import PlaylistItem from "./PlaylistItem";
 
-const PlaylistList = ({ pp, modify }) => {
+const PlaylistList = ({ pp, modify, pub }) => {
   const [canEdit, SetCanEdit] = useState(false);
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const PlaylistList = ({ pp, modify }) => {
       <ul>
         {" "}
         {pp?.map((i) => (
-          <PlaylistItem playlist={i} editable={canEdit} key={i.id} />
+          <PlaylistItem playlist={i} editable={canEdit} key={i.id} pub={pub} />
         ))}
       </ul>
     </div>
