@@ -44,7 +44,7 @@ export default function Navbar() {
             localStorage.setItem("Token", "");
           }}
         >
-          Logout {username}
+          Logout
         </button>
       </div>
     </nav>

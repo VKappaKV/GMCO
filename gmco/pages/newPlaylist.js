@@ -22,6 +22,9 @@ const newPlaylist = () => {
   function deleteHandler() {
     console.log("PLAYLIST IN QUESTO MOMENTO: ", playlist);
     const check_user = JSON.parse(localStorage.getItem(user));
+    const check_public_playlists = JSON.parse(
+      localStorage.getItem("public playlists")
+    );
     if (check_user.playlist) {
       const foundItem = check_user.playlist.find(
         (item) => item.id === playlist.id
@@ -36,6 +39,32 @@ const newPlaylist = () => {
         console.log("aggiungo la playlist modificata", playlist);
         check_user.playlist.push(playlist);
         localStorage.setItem(user, JSON.stringify(check_user));
+        if (check_public_playlists) {
+          const foundItem = check_public_playlists.find(
+            (item) => item.id === playlist.id && item.author === user
+          );
+          const res = foundItem
+            ? "l'ho trovato"
+            : "non è nelle playlist pubbliche";
+          console.log(res, " ", foundItem);
+          if (!foundItem) {
+            rt.push("/homepage");
+            return;
+          }
+          const filtered_pp = check_public_playlists.filter(
+            (i) => i.id !== playlist.id
+          );
+          console.log(
+            "rimuovo la playlist dalla lista che poi devo aggiornare: ",
+            filtered_pp
+          );
+          check_public_playlists = filtered_pp;
+          check_public_playlists.push(playlist);
+          localStorage.setItem(
+            "public playlists",
+            JSON.stringify(check_public_playlists)
+          );
+        }
         rt.push("/homepage");
       }
     }

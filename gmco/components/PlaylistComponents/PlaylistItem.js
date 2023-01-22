@@ -116,7 +116,7 @@ const PlaylistItem = ({ playlist, editable, pub }) => {
           <button
             onClick={() => {
               SetPlaylist(playlist);
-              SetModal(true);
+              deleteHandler();
             }}
           >
             {" "}
@@ -218,6 +218,23 @@ const EditPlaylist = ({ closeModal, playlist }) => {
     userPlaylists.push(before);
     console.log(selected_user);
     localStorage.setItem(user, JSON.stringify(selected_user));
+    if (playlist.author !== user) {
+      closeModal();
+      SetKey((k) => k + 1);
+      return;
+    }
+    const public_playlists = JSON.parse(
+      localStorage.getItem("public playlists")
+    );
+    const public_index = public_playlists.findIndex((i) => i.id == playlist.id);
+    if (public_index == -1) {
+      closeModal();
+      return;
+    }
+    public_playlists.splice(public_index, 1);
+    public_playlists.push(before);
+    localStorage.setItem("public playlists", JSON.stringify(public_playlists));
+
     console.log("sono qui al render numero: ", key);
     SetKey((k) => k + 1);
     closeModal();

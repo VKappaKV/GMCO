@@ -46,7 +46,11 @@ function Modal(props) {
     if (typeof window !== "undefined") {
       localStorage.setItem(key, JSON.stringify(user));
     }
-    //fare controllo che utente esisti già
+    if (localStorage.getItem(user.email)) {
+      alert("email già registrata");
+      CancelHandler();
+      return;
+    }
 
     alert(`Utente ${user.username} Registrato con email: ${key}`);
     console.log(user, "stored user");
@@ -150,6 +154,8 @@ function Modal(props) {
               placeholder="Password"
               onChange={(e) => SetPasswordSignup(e.target.value)}
               required
+              title="Must contain at least one  number, one uppercase, one lowercase letter and a special character, min 8 characters and max 20"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,20}$"
             />
             <label htmlFor="floatingPassword">Password</label>
           </div>
