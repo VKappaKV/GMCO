@@ -4,9 +4,11 @@ import Navbar from "../components/UI/Navbar";
 import AuthTokenCall from "../components/SpotifyAPIHandlers/AuthTokenCall";
 import GetCategories from "../components/SpotifyAPIHandlers/GetCategoriesCall";
 import CategoriesList from "../components/UI/CategoriesList";
+import { useRouter } from "next/router";
 
 const preferences = () => {
   const [data, setData] = useState();
+  const router = useRouter();
 
   useEffect(() => {
     const getToken = async () => {
@@ -35,10 +37,24 @@ const preferences = () => {
   }, []);
 
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column", gap: "50px" }}>
       <Navbar />
-      <div>{data ? <CategoriesList data={data} /> : null}</div>
-    </>
+      <div style={{ flex: 3 }}>
+        {data ? <CategoriesList data={data} /> : null}
+      </div>
+      <button
+        style={{
+          alignSelf: "center",
+          height: "max-content",
+          width: "max-content",
+          flex: 2,
+        }}
+        className="btn btn-success"
+        onClick={() => router.push("/homepage")}
+      >
+        FATTO
+      </button>
+    </div>
   );
 };
 

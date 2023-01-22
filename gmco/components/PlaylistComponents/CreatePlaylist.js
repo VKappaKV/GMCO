@@ -20,8 +20,9 @@ const CreatePlaylist = (props) => {
   };
 
   return (
-    <div>
+    <div style={{ alignSelf: "center", justifySelf: "auto" }}>
       <input
+        className="form-control"
         id="nome-playlist"
         type="text"
         placeholder="NOME PLAYLIST"
@@ -29,6 +30,7 @@ const CreatePlaylist = (props) => {
         onChange={(e) => SetPlaylist({ ...playlist, name: e.target.value })}
       />
       <input
+        className="form-control"
         id="tag-playlist"
         type="text"
         placeholder="#TAG"
@@ -37,6 +39,7 @@ const CreatePlaylist = (props) => {
       />
       <br />
       <textarea
+        className="input-group-text"
         id="descrizione-playlist"
         placeholder="DESCRIZIONE PLAYLIST"
         rows="3"
@@ -45,7 +48,9 @@ const CreatePlaylist = (props) => {
           SetPlaylist({ ...playlist, description: e.target.value })
         }
       />
-      <button onClick={handleSubmit}>ADD PLAYLIST</button>
+      <button className="btn btn-outline-success" onClick={handleSubmit}>
+        ADD PLAYLIST
+      </button>
     </div>
   );
 };

@@ -62,19 +62,24 @@ const homepage = () => {
     );
   } else {
     return (
-      <>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <Navbar />
-        <h1> THIS IS THE HOMEPAGE </h1>
-        <p>BEN ARRIVATO {username}</p>
-        <button onClick={handleRoutingToNewPlaylist}>
+        <h1 style={{ alignSelf: "center" }}> YOUR HOMEPAGE {username}</h1>
+        <button
+          className="btn btn-dark"
+          style={{ width: "max-content", alignSelf: "center" }}
+          onClick={handleRoutingToNewPlaylist}
+        >
           CREA NUOVA PLAYLIST
         </button>
-        <h3>LE TUE PLAYLIST</h3>
+        <h3 style={{ alignSelf: "center" }}>LE TUE PLAYLIST</h3>
         <PlaylistList pp={privp} modify={true} />
-        <h3>PLAYLIST PUBBLICHE</h3>{" "}
+        <h3 style={{ alignSelf: "center" }}>PLAYLIST PUBBLICHE</h3>{" "}
         <button
+          className="btn btn-secondary"
+          style={{ width: "max-content", alignSelf: "center" }}
           onClick={() => {
-            onSearch(true);
+            onSearch((c) => !c);
             resetPublicPlaylistHandler();
           }}
         >
@@ -89,7 +94,7 @@ const homepage = () => {
           />
         )}
         <PlaylistList pp={pp} modify={false} pub={true} />
-      </>
+      </div>
     );
   }
 };

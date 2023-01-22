@@ -14,7 +14,9 @@ const TracksList = ({ onSearch, objData }) => {
   };
 
   return (
-    <>
+    <div
+      style={{ display: "flex", flexDirection: "coloumn", alignSelf: "center" }}
+    >
       <div>
         {" "}
         <h3>Risultati della ricerca:</h3>
@@ -30,8 +32,14 @@ const TracksList = ({ onSearch, objData }) => {
           ))}
         </ul>
         <br />
-        <button onClick={() => onSearch(true)}>Search again</button>
         <button
+          className="btn btn-outline-success"
+          onClick={() => onSearch(true)}
+        >
+          Search again
+        </button>
+        <button
+          className="btn btn-success"
           onClick={() => {
             SetConfirm(true);
             playlist.songs.push(...list);
@@ -54,15 +62,17 @@ const TracksList = ({ onSearch, objData }) => {
           />
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 
 const TrackItem = ({ track, SetSong, RemoveSong }) => {
   const [added, SetAdded] = useState(true);
   return (
-    <div>
-      <div>
+    <div
+      style={{ display: "flex", flexDirection: "coloumn", alignSelf: "center" }}
+    >
+      <div style={{ alignSelf: "center" }}>
         {" "}
         <h5>{track.name}</h5>
         ARTISTS:{" "}
@@ -72,6 +82,7 @@ const TrackItem = ({ track, SetSong, RemoveSong }) => {
         })}
         {added ? (
           <button
+            className="btn btn-outline-success"
             onClick={() => {
               SetSong((list) => [...list, track]);
               SetAdded(false);
@@ -81,6 +92,7 @@ const TrackItem = ({ track, SetSong, RemoveSong }) => {
           </button>
         ) : (
           <button
+            className="btn btn-outline-danger"
             onClick={() => {
               RemoveSong(track);
               SetAdded(true);

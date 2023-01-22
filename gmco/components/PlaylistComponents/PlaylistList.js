@@ -9,7 +9,16 @@ const PlaylistList = ({ pp, modify, pub }) => {
   }, []);
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-around",
+        /* backgroundColor: "tomato", */
+        margin: 0 + 5,
+        flexWrap: "wrap",
+      }}
+    >
       <ul>
         {" "}
         {pp?.map((i) => (

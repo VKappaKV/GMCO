@@ -24,9 +24,9 @@ const TrackSearch = ({ onSearch, handleObj }) => {
   };
 
   return (
-    <div>
-      <div>
-        <p> SEARCH SONGS TO ADD TO YOUR PLAYLIST</p>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ alignSelf: "center", alignItems: "center" }}>
+        <h4> SEARCH SONGS TO ADD TO YOUR PLAYLIST</h4>
       </div>
       <div className="container">
         <br />

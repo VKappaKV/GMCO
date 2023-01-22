@@ -1,5 +1,6 @@
 import UserContext from "../utility/UserContext";
 import { useContext, useEffect, useState } from "react";
+import Image from "next/image";
 
 const CategoryItem = (props) => {
   const [flag, SetFlag] = useState(false);
@@ -39,13 +40,36 @@ const CategoryItem = (props) => {
     SetFlag(false);
   };
   return (
-    <div>
-      <h3>{props.name}</h3>
-      {isCheckedPreference.preferenze?.includes(props.name) && flag ? (
-        <button onClick={() => removePreference(props.name)}> REMOVE </button>
-      ) : (
-        <button onClick={() => addPreference(props.name)}>ADD</button>
-      )}
+    <div
+      style={{
+        /*  backgroundColor: "rebeccapurple", */
+        margin: 0 + 5,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Image src={props.image} width={100} height={100} style={{ flex: 3 }} />
+      <div style={{ flex: 1 }}>
+        <h6>{props.name}</h6>
+      </div>
+      <div style={{ flex: 1 }}>
+        {isCheckedPreference.preferenze?.includes(props.name) && flag ? (
+          <button
+            className="btn btn-secondary"
+            onClick={() => removePreference(props.name)}
+          >
+            {" "}
+            REMOVE{" "}
+          </button>
+        ) : (
+          <button
+            className="btn btn-danger"
+            onClick={() => addPreference(props.name)}
+          >
+            ADD
+          </button>
+        )}
+      </div>
     </div>
   );
 };

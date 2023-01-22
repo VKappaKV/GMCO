@@ -43,9 +43,6 @@ function Modal(props) {
     user.password = password_signup;
     user.username = username_signup;
     const key = email_signup;
-    if (typeof window !== "undefined") {
-      localStorage.setItem(key, JSON.stringify(user));
-    }
     if (localStorage.getItem(user.email)) {
       alert("email già registrata");
       CancelHandler();
@@ -56,6 +53,9 @@ function Modal(props) {
     console.log(user, "stored user");
     var userStored = JSON.parse(localStorage.getItem(key));
     console.log(userStored, "retrieved user");
+    if (typeof window !== "undefined") {
+      localStorage.setItem(key, JSON.stringify(user));
+    }
     ConfirmSignupHandler();
   }
 
@@ -70,7 +70,7 @@ function Modal(props) {
       alert("user is not registered");
       CancelHandler();
     } else if (password_login != logging_user.password) {
-      console.log(password_login + "is not the correct password");
+      alert("This is not the correct password");
       CancelHandler();
     } else {
       alert("Bentornato " + logging_user.username);

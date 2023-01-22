@@ -5,6 +5,7 @@
   background-color: white;
   justify-content: center;
   padding: 1rem;
+  align-self: center;
   text-align: center;
   width: fit-content;
   z-index: 10;
@@ -27,4 +28,8 @@
   top: 10vh;
   left: calc(50% - 15rem);
   flex-direction: column;
+}
+
+.clickable:hover {
+  cursor: pointer;
 }

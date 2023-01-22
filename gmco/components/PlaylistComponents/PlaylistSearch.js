@@ -36,9 +36,6 @@ const PlaylistSearch = ({ onSearch, playlist, onFilterPlaylist }) => {
 
   return (
     <div>
-      <div>
-        <p> SEARCH PLAYLIST</p>
-      </div>
       <div className="container">
         <br />
         <div className="row justify-content-center">

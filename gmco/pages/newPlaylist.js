@@ -104,9 +104,20 @@ const newPlaylist = () => {
   }, []);
 
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Navbar />
-      <div className={{ flexDirection: "row" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignSelf: "center",
+        }}
+      >
         <h1>CREA QUI LA TUA PLAYLIST</h1>
         <button
           type="button"
@@ -117,9 +128,15 @@ const newPlaylist = () => {
         </button>
       </div>
       {isCreated ? (
-        <div>
+        <div style={{ alignSelf: "center", alignItems: "center" }}>
           <h4> HO CREATO LA PLAYLIST</h4>
-          <button onClick={handlePlaylistReset}> REIMPOSTA LA PLAYLIST</button>
+          <button
+            className="btn btn-outline-secondary"
+            onClick={handlePlaylistReset}
+          >
+            {" "}
+            REIMPOSTA LA PLAYLIST
+          </button>
           <PlaylistItem playlist={playlist} />
         </div>
       ) : (
@@ -134,7 +151,7 @@ const newPlaylist = () => {
       ) : null}
       {modal && <PlaylistModal closeModal={closeModalHandler} />}
       {modal && <Backdrop onCancel={closeModalHandler} />}
-    </>
+    </div>
   );
 };
 

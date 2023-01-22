@@ -96,6 +96,7 @@ const PlaylistItem = ({ playlist, editable, pub }) => {
         <ul>
           {playlist.songs.map((track) => (
             <li
+              className={styles.clickable}
               key={track.id}
               onClick={() => {
                 SetTrackToShow(track);
@@ -114,6 +115,7 @@ const PlaylistItem = ({ playlist, editable, pub }) => {
       {showEditButton && (
         <div>
           <button
+            className="btn btn-outline-dark"
             onClick={() => {
               SetPlaylist(playlist);
               deleteHandler();
@@ -123,6 +125,7 @@ const PlaylistItem = ({ playlist, editable, pub }) => {
             EDIT{" "}
           </button>
           <button
+            className="btn btn-outline-primary"
             onClick={() => {
               SetPlaylist(playlist);
               router.push("/" + "newPlaylist");
@@ -131,6 +134,7 @@ const PlaylistItem = ({ playlist, editable, pub }) => {
             Add Songs
           </button>
           <button
+            className="btn btn-outline-danger"
             onClick={() => {
               deletePlaylistHandler();
             }}
@@ -140,7 +144,10 @@ const PlaylistItem = ({ playlist, editable, pub }) => {
         </div>
       )}
       {pub && (
-        <button onClick={addPlaylistToUserCollection}>
+        <button
+          className="btn btn-outline-success"
+          onClick={addPlaylistToUserCollection}
+        >
           AGGIUNGI ALLE TUE PLAYLIST
         </button>
       )}
@@ -253,33 +260,53 @@ const EditPlaylist = ({ closeModal, playlist }) => {
   }, []);
 
   return (
-    <div className={styles.modalEdit}>
-      <input
-        id="nome-playlist"
-        type="text"
-        placeholder={playlist.name}
-        required
-        onChange={(e) => SetBefore({ ...before, name: e.target.value })}
-      />
-      <input
-        id="tag-playlist"
-        type="text"
-        placeholder={playlist.tag}
-        required
-        onChange={(e) => SetBefore({ ...before, tag: e.target.value })}
-      />
-      <br />
-      <textarea
-        id="descrizione-playlist"
-        placeholder={playlist.description}
-        rows="3"
-        cols="30"
-        onChange={(e) => SetBefore({ ...before, description: e.target.value })}
-      />
+    <div
+      style={{ display: "flex", flexDirection: "column" }}
+      className={styles.modalEdit}
+    >
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <input
+            style={{ minHeight: "10px", height: "30px", maxHeight: "50px" }}
+            id="nome-playlist"
+            type="text"
+            placeholder={playlist.name}
+            required
+            onChange={(e) => SetBefore({ ...before, name: e.target.value })}
+          />
+          <input
+            style={{ minHeight: "10px", height: "30px", maxHeight: "50px" }}
+            id="tag-playlist"
+            type="text"
+            placeholder={playlist.tag}
+            required
+            onChange={(e) => SetBefore({ ...before, tag: e.target.value })}
+          />
+        </div>
+
+        <textarea
+          style={{
+            minHeight: "10px",
+            height: "100px",
+            maxHeight: "100px",
+          }}
+          id="descrizione-playlist"
+          placeholder={playlist.description}
+          rows="3"
+          cols="30"
+          onChange={(e) =>
+            SetBefore({ ...before, description: e.target.value })
+          }
+        />
+      </div>
       {before && (
         <ul>
           {before.songs?.map((track) => (
-            <li key={track.id} onClick={() => deleteTrack(track)}>
+            <li
+              className={styles.clickable}
+              key={track.id}
+              onClick={() => deleteTrack(track)}
+            >
               {track.artists?.map((artist) => {
                 const names = artist.name + " ";
                 return names;
@@ -289,9 +316,23 @@ const EditPlaylist = ({ closeModal, playlist }) => {
           ))}
         </ul>
       )}
-
-      <button onClick={handleConfirm}> CONFERMA MODIFICHE </button>
-      <button onClick={() => closeModal()}>Annulla</button>
+      <div style={{ display: "flex", alignSelf: "center" }}>
+        <button
+          className="btn btn-outline-success"
+          style={{ width: "max-content" }}
+          onClick={handleConfirm}
+        >
+          {" "}
+          CONFERMA MODIFICHE{" "}
+        </button>
+        <button
+          className="btn btn-outline-danger"
+          style={{ width: "max-content" }}
+          onClick={() => closeModal()}
+        >
+          Annulla
+        </button>
+      </div>
     </div>
   );
 };
