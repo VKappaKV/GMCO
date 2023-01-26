@@ -49,7 +49,7 @@ const CreatePlaylist = (props) => {
         }
       />
       <button className="btn btn-outline-success" onClick={handleSubmit}>
-        ADD PLAYLIST
+        CONFERMA
       </button>
     </div>
   );

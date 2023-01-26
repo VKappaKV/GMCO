@@ -59,14 +59,14 @@ const CategoryItem = (props) => {
             onClick={() => removePreference(props.name)}
           >
             {" "}
-            REMOVE{" "}
+            RIMUOVI{" "}
           </button>
         ) : (
           <button
             className="btn btn-danger"
             onClick={() => addPreference(props.name)}
           >
-            ADD
+            AGGIUNGI
           </button>
         )}
       </div>

@@ -36,7 +36,7 @@ const TracksList = ({ onSearch, objData }) => {
           className="btn btn-outline-success"
           onClick={() => onSearch(true)}
         >
-          Search again
+          CERCA ANCORA
         </button>
         <button
           className="btn btn-success"
@@ -48,7 +48,7 @@ const TracksList = ({ onSearch, objData }) => {
             console.log(playlist);
           }}
         >
-          Add Songs to your playlist
+          AGGIUNGI CANZONI ALLA TUA PLAYLIST
         </button>
       </div>
       <ul>

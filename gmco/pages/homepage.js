@@ -64,7 +64,7 @@ const homepage = () => {
     return (
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Navbar />
-        <h1 style={{ alignSelf: "center" }}> YOUR HOMEPAGE {username}</h1>
+        <h1 style={{ alignSelf: "center" }}> LA TUA HOMEPAGE {username}</h1>
         <button
           className="btn btn-dark"
           style={{ width: "max-content", alignSelf: "center" }}

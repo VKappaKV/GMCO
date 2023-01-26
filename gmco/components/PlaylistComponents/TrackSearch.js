@@ -26,7 +26,7 @@ const TrackSearch = ({ onSearch, handleObj }) => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div style={{ alignSelf: "center", alignItems: "center" }}>
-        <h4> SEARCH SONGS TO ADD TO YOUR PLAYLIST</h4>
+        <h4>CERCA LE CANZONI DA AGGIUNGERE ALLA PLAYLIST</h4>
       </div>
       <div className="container">
         <br />
@@ -47,7 +47,7 @@ const TrackSearch = ({ onSearch, handleObj }) => {
                 </div>
                 <div className="col-auto">
                   <button className="btn btn-lg btn-success" type="submit">
-                    Search
+                    CERCA
                   </button>
                 </div>
               </div>

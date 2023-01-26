@@ -48,7 +48,7 @@ export default function Navbar() {
             localStorage.setItem("Token", "");
           }}
         >
-          Logout
+          ESCI
         </button>
       </div>
     </nav>

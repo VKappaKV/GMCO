@@ -36,6 +36,10 @@ const preferences = () => {
       .catch((e) => console.log(e));
   }, []);
 
+  const userHasChosenPreferences = () => {
+    router.push("/homepage");
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "50px" }}>
       <Navbar />
@@ -50,7 +54,7 @@ const preferences = () => {
           flex: 2,
         }}
         className="btn btn-success"
-        onClick={() => router.push("/homepage")}
+        onClick={userHasChosenPreferences}
       >
         FATTO
       </button>

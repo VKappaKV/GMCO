@@ -40,7 +40,7 @@ const profile = () => {
   return (
     <>
       <Navbar />
-      <h1>This is your Profile Page {username}</h1>
+      <h1>PAGINA PROFILO DI: {username}</h1>
       <div className="list-group">
         <button
           type="button"
@@ -50,7 +50,7 @@ const profile = () => {
             deleteHandler();
           }}
         >
-          CHANGE USERNAME
+          CAMBIA USERNAME
         </button>
         <button
           type="button"
@@ -60,7 +60,7 @@ const profile = () => {
             deleteHandler();
           }}
         >
-          UPDATE PASSWORD
+          AGGIORNA PASSWORD
         </button>
         <button
           type="button"
@@ -69,7 +69,7 @@ const profile = () => {
             router.push("/" + "preferences");
           }}
         >
-          SET YOUR PREFERENCES
+          IMPOSTA LE TUE PREFERENZE
         </button>
         <button
           type="button"
@@ -81,7 +81,7 @@ const profile = () => {
             router.push("/");
           }}
         >
-          DELETE USER
+          CANCELLA ACCOUNT
         </button>
       </div>
       {modal && <ModalProfile edit={toEdit} closeModal={closeModalHandler} />}

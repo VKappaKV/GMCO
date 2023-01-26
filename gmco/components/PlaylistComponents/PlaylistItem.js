@@ -122,7 +122,7 @@ const PlaylistItem = ({ playlist, editable, pub }) => {
             }}
           >
             {" "}
-            EDIT{" "}
+            MODIFICA{" "}
           </button>
           <button
             className="btn btn-outline-primary"
@@ -131,7 +131,7 @@ const PlaylistItem = ({ playlist, editable, pub }) => {
               router.push("/" + "newPlaylist");
             }}
           >
-            Add Songs
+            AGGIUNGI CANZONI
           </button>
           <button
             className="btn btn-outline-danger"
@@ -139,7 +139,7 @@ const PlaylistItem = ({ playlist, editable, pub }) => {
               deletePlaylistHandler();
             }}
           >
-            DELETE
+            CANCELLA
           </button>
         </div>
       )}

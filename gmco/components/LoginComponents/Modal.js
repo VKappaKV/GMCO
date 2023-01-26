@@ -111,10 +111,10 @@ function Modal(props) {
           </div>
 
           <button type="submit" className={styles.btnalt}>
-            Confirm
+            Conferma
           </button>
           <button className={styles.btn} onClick={CancelHandler} type="button">
-            Cancel
+            Annulla
           </button>
         </form>
       </div>
@@ -160,10 +160,10 @@ function Modal(props) {
             <label htmlFor="floatingPassword">Password</label>
           </div>
           <button type="submit" className={styles.btnalt}>
-            Confirm
+            Conferma
           </button>
           <button type="button" className={styles.btn} onClick={CancelHandler}>
-            Cancel
+            Annulla
           </button>
         </form>
       </div>
